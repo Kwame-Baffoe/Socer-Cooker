@@ -23,3 +23,8 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+
+// Static parameters function
+export async function generateStaticParams() {
+  return [];
+}

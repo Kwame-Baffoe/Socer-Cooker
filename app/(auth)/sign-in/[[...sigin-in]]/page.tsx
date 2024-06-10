@@ -23,3 +23,8 @@ const SignInPage = () => {
 };
 
 export default SignInPage;
+
+// Static parameters function
+export async function generateStaticParams() {
+  return [];
+}
