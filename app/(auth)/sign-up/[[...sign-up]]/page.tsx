@@ -1,3 +1,5 @@
+// pages/(auth)/sign-up/[[...sign-up]]/page.tsx
+
 // Use the 'use client' directive to mark this as a client component
 'use client';
 
@@ -24,8 +26,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
-// Static parameters function
-export async function generateStaticParams() {
-  return [];
-}
