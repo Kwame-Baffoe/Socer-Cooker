@@ -1,5 +1,3 @@
-'use client'; // This directive is required for client components
-
 import { SignIn } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation'; // Use next/navigation for client components
 import { useEffect } from 'react';
