@@ -345,7 +345,7 @@ const RootLayout = () => {
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <SignedOut>
-              <SignInButton mode="modal" onSignIn={() => window.location.href= "./thank-you"}>
+              <SignInButton mode="modal">
                 <button
                   type="button"
                   className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 transition duration-200 ease-in-out"
