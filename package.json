@@ -29,6 +29,7 @@
     "react-hook-form": "^7.21.0",
     "react-tsparticles": "^2.12.2",
     "rimraf": "^4.0.2",
+    "sharp": "^0.33.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.165.0",
