@@ -1,4 +1,4 @@
-
+"use cleints"
 import { SignUp } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation'; // Use next/navigation for client components
 import { useEffect } from 'react';
