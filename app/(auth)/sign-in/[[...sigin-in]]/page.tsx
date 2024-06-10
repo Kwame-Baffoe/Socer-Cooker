@@ -24,6 +24,6 @@ const SignInPage = () => {
 export default SignInPage;
 
 // If you don't have any dynamic params, export an empty array
-export async function getParams() {
+export async function generateStaticParams() {
   return [];
 }

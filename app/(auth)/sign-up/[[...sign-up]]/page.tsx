@@ -24,6 +24,6 @@ const SignUpPage = () => {
 export default SignUpPage;
 
 // If you don't have any dynamic params, export an empty array
-export async function getParams() {
+export async function generateStaticParams() {
   return [];
 }
