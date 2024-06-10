@@ -1,8 +1,7 @@
-// Assuming this is your sign-up page component
-"use client";
+"use client"; // This marks the component as a client component
 
 import { SignUp } from '@clerk/nextjs';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'; // Corrected import path
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
@@ -24,3 +23,8 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+
+// If you don't have any dynamic params, export an empty array
+export async function generateStaticParams() {
+  return [];
+}

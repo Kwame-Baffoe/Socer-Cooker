@@ -24,9 +24,3 @@ const SignInPage = () => {
 
 export default SignInPage;
 
-// Since this is a client component, you might not need generateStaticParams
-// unless you're dynamically generating static paths for this route.
-// If you don't have any dynamic params, you can remove this function entirely.
-// export async function generateStaticParams() {
-//   return [];
-// }
