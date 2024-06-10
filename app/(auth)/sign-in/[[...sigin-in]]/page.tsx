@@ -1,6 +1,8 @@
-"use clients"
+// Use the 'use client' directive to mark this as a client component
+'use client';
+
 import { SignIn } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation'; // Use next/navigation for client components
+import { useRouter } from 'next/router'; // Use next/router for client components
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
