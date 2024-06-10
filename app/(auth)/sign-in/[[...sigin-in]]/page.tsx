@@ -1,8 +1,3 @@
-// pages/(auth)/sign-in/[[...sign-in]]/page.tsx
-
-// Use the 'use client' directive to mark this as a client component
-'use client';
-
 import { SignIn } from '@clerk/nextjs';
 import { useRouter } from 'next/router'; // Use next/router for client components
 import { useEffect } from 'react';
@@ -26,3 +21,8 @@ const SignInPage = () => {
 };
 
 export default SignInPage;
+
+// If you don't have any dynamic params, export an empty array
+export async function getParams() {
+  return [];
+}
