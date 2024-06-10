@@ -1,6 +1,6 @@
 
 import { SignUp } from '@clerk/nextjs';
-import { useRouter } from 'next/router'; // Use next/router for client components
+import { useRouter } from 'next/navigation'; // Use next/navigation for client components
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
