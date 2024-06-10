@@ -1,9 +1,7 @@
-// app/(auth)/sign-up/[[...sign-up]]/page.tsx
-
 "use client"; // This marks the component as a client component
 
 import { SignUp } from '@clerk/nextjs';
-import { useRouter } from 'next/navigation'; // Use next/navigation for client components
+import { useRouter } from 'next/router'; // Corrected import path
 import { useEffect } from 'react';
 import { useUser } from '@clerk/nextjs';
 
