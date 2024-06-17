@@ -1,4 +1,3 @@
-"use client"; // This marks the component as a client component
 
 import { SignUp } from '@clerk/nextjs';
 import { useRouter } from 'next/router'; // Corrected import path
