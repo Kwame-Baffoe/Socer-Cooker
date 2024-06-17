@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: " Saint Paul Hawkeyes | Saint Paul College",
+  title: " Hawks of the Saints | Saint Paul College",
   description: "Saint Paul College soccer club:  Saint Paul Hawkeyes",
 };
 

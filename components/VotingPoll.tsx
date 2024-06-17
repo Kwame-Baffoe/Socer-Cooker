@@ -1,17 +1,20 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-interface VotingData {
-  [key: string]: number;
+interface VotingOption {
+  id: string;
+  name: string;
+  color: string;
 }
 
+const votingOptions: VotingOption[] = [
+  { id: 'option1', name: 'Hawk', color: 'bg-blue-500' },
+  { id: 'option2', name: 'Polar Bear', color: 'bg-green-500' },
+  { id: 'option3', name: 'Falcon', color: 'bg-purple-500' },
+];
+
 const VotingPoll: React.FC = () => {
-  const [votes, setVotes] = useState<VotingData>({
-    option1: 0,
-    option2: 0,
-    option3: 0,
-  });
+  const [votes, setVotes] = useState<Record<string, number>>({});
   const [userVoted, setUserVoted] = useState<string | null>(null);
 
   useEffect(() => {
@@ -21,6 +24,12 @@ const VotingPoll: React.FC = () => {
     const storedVotes = localStorage.getItem('votes');
     if (storedVotes) {
       setVotes(JSON.parse(storedVotes));
+    } else {
+      const initialVotes = votingOptions.reduce((acc, option) => {
+        acc[option.id] = 0;
+        return acc;
+      }, {} as Record<string, number>);
+      setVotes(initialVotes);
     }
   }, []);
 
@@ -30,88 +39,76 @@ const VotingPoll: React.FC = () => {
 
   const totalVotes = Object.values(votes).reduce((acc, curr) => acc + curr, 0);
 
-  const handleVote = (option: string) => {
-    if (userVoted) return; // User has already voted
+  const handleVote = (optionId: string) => {
+    if (userVoted) return;
 
-    const updatedVotes = {
-      ...votes,
-      [option]: votes[option] + 1,
-    };
-
-    setVotes(updatedVotes);
-    setUserVoted(option);
-    localStorage.setItem('userVote', option);
+    setVotes(prev => ({
+      ...prev,
+      [optionId]: (prev[optionId] || 0) + 1,
+    }));
+    setUserVoted(optionId);
+    localStorage.setItem('userVote', optionId);
   };
 
-  const getProgressBarWidth = (option: string) => {
-    const optionVotes = votes[option];
-    const percentage = totalVotes > 0 ? (optionVotes / totalVotes) * 100 : 0;
-    return `${percentage}%`;
+  const getProgressBarWidth = (optionId: string) => {
+    const optionVotes = votes[optionId] || 0;
+    return totalVotes > 0 ? (optionVotes / totalVotes) * 100 : 0;
   };
 
   return (
-    <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-6 rounded-lg mt-10 shadow-lg">
-      <h2 className="text-3xl font-bold text-white text-center mb-6">
-        Let us Vote on Mascot
-      </h2>
-      <div className="mt-4 space-y-4">
-        <div
-           className={`bg-blue-500 text-white rounded-lg p-4 cursor-pointer transition duration-300 ${
-            (userVoted === 'option1' || userVoted !== null) && 'opacity-50 cursor-not-allowed'
-          }`}
-          onClick={() => handleVote('option1')}
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-semibold">Hawk</span>
-            <span className="text-2xl font-bold">{votes.option1}</span>
-          </div>
-          <div className="w-full bg-gray-300 rounded-full h-4 mt-2">
-            <div
-              className="bg-blue-700 h-4 rounded-full"
-              style={{ width: getProgressBarWidth('option1') }}
-            ></div>
-          </div>
-        </div>
-        <div
-          className={`bg-green-500 text-white rounded-lg p-4 cursor-pointer transition duration-300 ${
-            userVoted === 'option2' || userVoted !== null
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:bg-green-600'
-          }`}
-          onClick={() => handleVote('option2')}
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-semibold">Lion</span>
-            <span className="text-2xl font-bold">{votes.option2}</span>
-          </div>
-          <div className="w-full bg-gray-300 rounded-full h-4 mt-2">
-            <div
-              className="bg-green-700 h-4 rounded-full"
-              style={{ width: getProgressBarWidth('option2') }}
-            ></div>
-          </div>
-        </div>
-        <div
-           className={`bg-blue-500 text-white rounded-lg p-4 cursor-pointer transition duration-300 ${
-            userVoted === 'option1' || userVoted !== null
-              ? 'opacity-50 cursor-not-allowed'
-              : 'hover:bg-blue-600'
-          }`}
-          onClick={() => handleVote('option1')}
-        >
-          <div className="flex items-center justify-between">
-            <span className="text-lg font-semibold">Falcon</span>
-            <span className="text-2xl font-bold">{votes.option3}</span>
-          </div>
-          <div className="w-full bg-gray-300 rounded-full h-4 mt-2">
-            <div
-              className="bg-red-700 h-4 rounded-full"
-              style={{ width: getProgressBarWidth('option3') }}
-            ></div>
-          </div>
-        </div>
+    <section className="max-w-4xl mx-auto py-20 px-4">
+      <h1 className="text-4xl font-bold mb-10 text-center text-gray-800 dark:text-white">
+        Vote for Our New Mascot
+      </h1>
+      <div className="space-y-6">
+        {votingOptions.map((option) => (
+          <motion.div
+            key={option.id}
+            className={`${option.color} rounded-lg p-6 shadow-lg`}
+            whileHover={{ scale: userVoted ? 1 : 1.02 }}
+            whileTap={{ scale: userVoted ? 1 : 0.98 }}
+          >
+            <button
+              className="w-full text-left"
+              onClick={() => handleVote(option.id)}
+              disabled={!!userVoted}
+            >
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xl font-semibold text-white">
+                  {option.name}
+                </span>
+                <span className="text-2xl font-bold text-white">
+                  {votes[option.id] || 0}
+                </span>
+              </div>
+              <div className="w-full bg-white bg-opacity-30 rounded-full h-6 overflow-hidden">
+                <motion.div
+                  className="h-full bg-white"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${getProgressBarWidth(option.id)}%` }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+              {userVoted === option.id && (
+                <div className="mt-2 text-white font-semibold">
+                  ✓ You voted for this option
+                </div>
+              )}
+            </button>
+          </motion.div>
+        ))}
       </div>
-    </div>
+      {userVoted && (
+        <p className="mt-6 text-center text-gray-600 dark:text-gray-300">
+          Thank you for voting! The results are displayed above.
+        </p>
+      )}
+      {!userVoted && (
+        <p className="mt-6 text-center text-gray-600 dark:text-gray-300">
+          Click on an option to cast your vote. You can only vote once.
+        </p>
+      )}
+    </section>
   );
 };
 
