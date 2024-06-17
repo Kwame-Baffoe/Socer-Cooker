@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
@@ -42,12 +44,17 @@ const VotingPoll: React.FC = () => {
   const handleVote = (optionId: string) => {
     if (userVoted) return;
 
-    setVotes(prev => ({
-      ...prev,
-      [optionId]: (prev[optionId] || 0) + 1,
-    }));
+    const updatedVotes = {
+      ...votes,
+      [optionId]: (votes[optionId] || 0) + 1,
+    };
+
+    setVotes(updatedVotes);
     setUserVoted(optionId);
     localStorage.setItem('userVote', optionId);
+
+    // Console log when vote is cast
+    console.log(`Vote cast for ${optionId}. Updated votes:`, updatedVotes);
   };
 
   const getProgressBarWidth = (optionId: string) => {
