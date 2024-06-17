@@ -64,7 +64,7 @@ const VotingPoll: React.FC = () => {
 
   return (
     <section className="max-w-4xl mx-auto py-20 px-4">
-      <h1 className="text-4xl font-bold mb-10 text-center text-gray-800 dark:text-white">
+      <h1 className="text-4xl font-bold mb-10 text-center text-gray-200 dark:text-white">
         Vote for Our New Mascot
       </h1>
       <div className="space-y-6">
