@@ -1,18 +1,13 @@
-
 import { SignUp } from '@clerk/nextjs';
-import { useRouter } from 'next/router'; // Corrected import path
-import { useEffect } from 'react';
-import { useUser } from '@clerk/nextjs';
+import { redirect } from 'next/navigation';
+import { currentUser } from '@clerk/nextjs/server';
 
-const SignUpPage = () => {
-  const { isSignedIn, isLoaded } = useUser();
-  const router = useRouter();
+const SignUpPage = async () => {
+  const user = await currentUser();
 
-  useEffect(() => {
-    if (isSignedIn && isLoaded) {
-      router.push('/thank-you');
-    }
-  }, [isSignedIn, isLoaded, router]);
+  if (user) {
+    redirect('/thank-you');
+  }
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
